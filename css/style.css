@@ -1,0 +1,560 @@
+/* =========================================================
+   style.css — Personal Dashboard
+   Single CSS file for the entire project
+   ========================================================= */
+
+/* ── 1. CSS Custom Properties (Theming) ── */
+:root {
+  /* Light theme */
+  --bg-page:       #f0f2f5;
+  --bg-card:       #ffffff;
+  --bg-input:      #f8f9fb;
+  --bg-header:     #ffffff;
+
+  --text-primary:  #1a1d23;
+  --text-secondary:#5a6273;
+  --text-muted:    #9aa0ae;
+
+  --accent:        #6c63ff;
+  --accent-hover:  #574fd6;
+  --accent-light:  #ede9ff;
+
+  --success:       #22c55e;
+  --danger:        #ef4444;
+  --danger-hover:  #dc2626;
+
+  --border:        #e2e5ec;
+  --shadow-sm:     0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md:     0 4px 12px rgba(0,0,0,0.09);
+
+  --radius:        12px;
+  --radius-sm:     8px;
+  --transition:    0.2s ease;
+}
+
+[data-theme="dark"] {
+  --bg-page:       #0f1117;
+  --bg-card:       #1a1d27;
+  --bg-input:      #23273a;
+  --bg-header:     #1a1d27;
+
+  --text-primary:  #e8eaf0;
+  --text-secondary:#9aa3b8;
+  --text-muted:    #5c6375;
+
+  --accent:        #7c75ff;
+  --accent-hover:  #9b96ff;
+  --accent-light:  #2a2650;
+
+  --success:       #4ade80;
+  --danger:        #f87171;
+  --danger-hover:  #ef4444;
+
+  --border:        #2d3148;
+  --shadow-sm:     0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md:     0 4px 16px rgba(0,0,0,0.4);
+}
+
+/* ── 2. Reset & Base ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+ul { list-style: none; }
+a  { color: inherit; text-decoration: none; }
+button { cursor: pointer; font-family: inherit; }
+input, select { font-family: inherit; }
+
+/* ── 3. Header ── */
+.site-header {
+  background: var(--bg-header);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: background-color var(--transition), border-color var(--transition);
+}
+
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* ── 4. Greeting ── */
+.greeting-block { display: flex; flex-direction: column; gap: 0.2rem; }
+
+.datetime {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+
+.greeting {
+  font-size: clamp(1.3rem, 3vw, 1.75rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.name-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.1rem;
+}
+
+.name-display {
+  font-size: 0.95rem;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.name-editor {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.name-editor .input { max-width: 200px; }
+
+/* ── 5. Theme Toggle ── */
+.theme-toggle {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 0.45rem 0.9rem;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: background-color var(--transition), transform var(--transition);
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover { transform: scale(1.05); }
+
+/* Show/hide sun & moon based on theme */
+[data-theme="light"] .icon-moon { display: none; }
+[data-theme="dark"]  .icon-sun  { display: none; }
+
+/* ── 6. Main Grid ── */
+.main-grid {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 0 1.5rem 3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 1.5rem;
+}
+
+/* Timer takes full first row on larger screens */
+#timer-section  { grid-column: 1; }
+#todo-section   { grid-column: 2; grid-row: 1 / 3; }
+#links-section  { grid-column: 1; }
+
+/* ── 7. Cards ── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: background-color var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+
+.card:hover { box-shadow: var(--shadow-md); }
+
+.card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.01em;
+}
+
+.card-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.card-header-row .card-title { margin-bottom: 0; }
+
+/* ── 8. Buttons ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid transparent;
+  transition: background-color var(--transition), transform var(--transition), opacity var(--transition);
+}
+
+.btn:hover:not(:disabled) { transform: translateY(-1px); }
+.btn:active:not(:disabled) { transform: translateY(0); }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+.btn-primary:hover:not(:disabled) { background: var(--accent-hover); }
+
+.btn-secondary {
+  background: var(--bg-input);
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+.btn-secondary:hover:not(:disabled) { background: var(--border); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border-color: var(--border);
+}
+.btn-ghost:hover:not(:disabled) { background: var(--bg-input); }
+
+.btn-danger {
+  background: transparent;
+  color: var(--danger);
+  border-color: transparent;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+}
+.btn-danger:hover:not(:disabled) { background: #fee2e2; color: var(--danger-hover); }
+[data-theme="dark"] .btn-danger:hover:not(:disabled) { background: #3b1919; }
+
+.btn-icon {
+  background: none;
+  border: none;
+  font-size: 0.9rem;
+  padding: 0.2rem 0.3rem;
+  border-radius: 6px;
+  color: var(--text-muted);
+  transition: color var(--transition), background-color var(--transition);
+}
+.btn-icon:hover { color: var(--accent); background: var(--accent-light); }
+
+/* ── 9. Inputs ── */
+.input {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 0.85rem;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  width: 100%;
+  transition: border-color var(--transition), background-color var(--transition);
+  outline: none;
+}
+
+.input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+.input::placeholder { color: var(--text-muted); }
+
+.select {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.45rem 0.7rem;
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  outline: none;
+  cursor: pointer;
+  transition: border-color var(--transition), background-color var(--transition);
+}
+
+.select:focus { border-color: var(--accent); }
+
+/* ── 10. Timer ── */
+.timer-display {
+  font-size: clamp(3rem, 10vw, 5rem);
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+  margin: 0.5rem 0 1rem;
+  font-variant-numeric: tabular-nums;
+  transition: color var(--transition);
+}
+
+.timer-display.running { color: var(--success); }
+.timer-display.done    { color: var(--danger);  }
+
+.timer-controls {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.timer-label {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.75rem;
+}
+
+/* ── 11. To-Do ── */
+.add-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.add-row .input { flex: 1; }
+.add-row .btn   { flex-shrink: 0; }
+
+.sort-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.sort-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.task-list { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.65rem 0.85rem;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition), border-color var(--transition), opacity var(--transition);
+  animation: slideIn 0.2s ease;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.task-item.done {
+  opacity: 0.55;
+}
+
+.task-checkbox {
+  appearance: none;
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color var(--transition), border-color var(--transition);
+  position: relative;
+}
+
+.task-checkbox:checked {
+  background: var(--success);
+  border-color: var(--success);
+}
+
+.task-checkbox:checked::after {
+  content: '✓';
+  position: absolute;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.task-text {
+  flex: 1;
+  font-size: 0.875rem;
+  word-break: break-word;
+  transition: text-decoration var(--transition), color var(--transition);
+}
+
+.task-item.done .task-text {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+.task-edit-input {
+  flex: 1;
+  font-size: 0.875rem;
+  background: var(--bg-card);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  padding: 0.2rem 0.5rem;
+  color: var(--text-primary);
+  outline: none;
+}
+
+.task-actions {
+  display: flex;
+  gap: 0.2rem;
+  flex-shrink: 0;
+}
+
+/* ── 12. Quick Links ── */
+.add-link-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  align-items: end;
+}
+
+.links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.75rem;
+}
+
+.link-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.85rem 0.5rem;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  text-align: center;
+  position: relative;
+  transition: background-color var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+  animation: slideIn 0.2s ease;
+}
+
+.link-card:hover {
+  border-color: var(--accent);
+  background: var(--accent-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.link-card a {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  word-break: break-all;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.link-favicon {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  object-fit: contain;
+}
+
+.link-label {
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.link-delete {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  padding: 2px 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity var(--transition), color var(--transition);
+}
+
+.link-card:hover .link-delete { opacity: 1; }
+.link-delete:hover { color: var(--danger); }
+
+/* ── 13. Utility ── */
+.hidden { display: none !important; }
+
+.empty-msg {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 1.5rem 0 0.5rem;
+}
+
+/* ── 14. Footer ── */
+.site-footer {
+  text-align: center;
+  padding: 1.25rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+}
+
+/* ── 15. Responsive ── */
+@media (max-width: 768px) {
+  .main-grid {
+    grid-template-columns: 1fr;
+    padding: 0 1rem 3rem;
+    margin-top: 1.25rem;
+    gap: 1rem;
+  }
+
+  #timer-section  { grid-column: 1; }
+  #todo-section   { grid-column: 1; grid-row: auto; }
+  #links-section  { grid-column: 1; }
+
+  .header-inner { padding: 1rem; flex-wrap: wrap; }
+
+  .add-link-form {
+    grid-template-columns: 1fr;
+  }
+
+  .greeting { font-size: 1.3rem; }
+}
+
+@media (max-width: 480px) {
+  .timer-display { font-size: 3.5rem; }
+  .card { padding: 1.1rem; }
+}

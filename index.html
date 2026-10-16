@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ========== HEADER ========== -->
+  <header class="site-header">
+    <div class="header-inner">
+
+      <!-- Greeting + Name -->
+      <div class="greeting-block">
+        <p id="current-datetime" class="datetime"></p>
+        <h1 id="greeting-text" class="greeting"></h1>
+        <div class="name-row">
+          <span id="name-display" class="name-display hidden"></span>
+          <button id="edit-name-btn" class="btn-icon" title="Set your name">✏️</button>
+        </div>
+        <!-- Inline name editor -->
+        <div id="name-editor" class="name-editor hidden">
+          <input type="text" id="name-input" class="input" placeholder="Enter your name…" maxlength="30" />
+          <button id="save-name-btn" class="btn btn-primary">Save</button>
+          <button id="cancel-name-btn" class="btn btn-ghost">Cancel</button>
+        </div>
+      </div>
+
+      <!-- Dark Mode Toggle -->
+      <button id="theme-toggle" class="theme-toggle" title="Toggle dark / light mode" aria-label="Toggle theme">
+        <span class="icon-sun">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+
+    </div>
+  </header>
+
+  <!-- ========== MAIN ========== -->
+  <main class="main-grid">
+
+    <!-- ── Focus Timer ── -->
+    <section class="card" id="timer-section">
+      <h2 class="card-title">⏱ Focus Timer</h2>
+      <div class="timer-display" id="timer-display">25:00</div>
+      <div class="timer-controls">
+        <button id="timer-start" class="btn btn-primary">Start</button>
+        <button id="timer-stop"  class="btn btn-secondary" disabled>Stop</button>
+        <button id="timer-reset" class="btn btn-ghost">Reset</button>
+      </div>
+      <p class="timer-label" id="timer-label">Ready to focus?</p>
+    </section>
+
+    <!-- ── To-Do List ── -->
+    <section class="card" id="todo-section">
+      <div class="card-header-row">
+        <h2 class="card-title">✅ To-Do List</h2>
+        <!-- Sort controls -->
+        <div class="sort-controls">
+          <label for="sort-select" class="sort-label">Sort:</label>
+          <select id="sort-select" class="select">
+            <option value="default">Default</option>
+            <option value="az">A → Z</option>
+            <option value="za">Z → A</option>
+            <option value="done-last">Undone first</option>
+            <option value="done-first">Done first</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Add task input -->
+      <div class="add-row">
+        <input type="text" id="task-input" class="input" placeholder="Add a new task…" maxlength="120" />
+        <button id="add-task-btn" class="btn btn-primary">Add</button>
+      </div>
+
+      <!-- Task list -->
+      <ul id="task-list" class="task-list"></ul>
+      <p id="empty-tasks" class="empty-msg">No tasks yet. Add one above!</p>
+    </section>
+
+    <!-- ── Quick Links ── -->
+    <section class="card" id="links-section">
+      <h2 class="card-title">🔗 Quick Links</h2>
+
+      <!-- Add link form -->
+      <div class="add-link-form">
+        <input type="text" id="link-name-input" class="input" placeholder="Label (e.g. GitHub)" maxlength="30" />
+        <input type="url"  id="link-url-input"  class="input" placeholder="URL (https://…)" />
+        <button id="add-link-btn" class="btn btn-primary">Add Link</button>
+      </div>
+
+      <!-- Link grid -->
+      <div id="links-grid" class="links-grid"></div>
+      <p id="empty-links" class="empty-msg">No links saved yet.</p>
+    </section>
+
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="site-footer">
+    <p>Built with ❤️ using HTML · CSS · Vanilla JS</p>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
