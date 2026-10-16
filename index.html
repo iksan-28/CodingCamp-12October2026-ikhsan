@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Dashboard</title>
+  <title>To-Do list Dashboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/png" href="image/logo.png" />
 </head>
 <body>
 
@@ -52,7 +53,7 @@
         <button id="timer-stop"  class="btn btn-secondary" disabled>Stop</button>
         <button id="timer-reset" class="btn btn-ghost">Reset</button>
       </div>
-      <p class="timer-label" id="timer-label">Ready to focus?</p>
+      <p class="timer-label" id="timer-label">Fokus woiii</p>
     </section>
 
     <!-- ── To-Do List ── -->
@@ -80,7 +81,7 @@
 
       <!-- Task list -->
       <ul id="task-list" class="task-list"></ul>
-      <p id="empty-tasks" class="empty-msg">No tasks yet. Add one above!</p>
+      <p id="empty-tasks" class="empty-msg">Belum ada tugas nih! tambahkan dong</p>
     </section>
 
     <!-- ── Quick Links ── -->
@@ -91,19 +92,19 @@
       <div class="add-link-form">
         <input type="text" id="link-name-input" class="input" placeholder="Label (e.g. GitHub)" maxlength="30" />
         <input type="url"  id="link-url-input"  class="input" placeholder="URL (https://…)" />
-        <button id="add-link-btn" class="btn btn-primary">Add Link</button>
+        <button id="add-link-btn" class="btn btn-primary">Tambahkan link</button>
       </div>
 
       <!-- Link grid -->
       <div id="links-grid" class="links-grid"></div>
-      <p id="empty-links" class="empty-msg">No links saved yet.</p>
+      <p id="empty-links" class="empty-msg">Belum ada link yg disimpan</p>
     </section>
 
   </main>
 
   <!-- ========== FOOTER ========== -->
   <footer class="site-footer">
-    <p>Built with ❤️ using HTML · CSS · Vanilla JS</p>
+    <p>Dibuat dengann ❤️ menggunakan HTML · CSS · Vanilla JS</p>
   </footer>
 
   <script src="js/app.js"></script>
